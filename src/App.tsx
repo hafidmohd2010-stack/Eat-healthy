@@ -6,15 +6,9 @@ import {
   Minus,
   Plus,
   Smile,
-  X,
-  ExternalLink,
-  FileText,
 } from 'lucide-react';
 
-/**
- * Replace this constant with your live Gumroad, Whop, or Stripe checkout link.
- */
-const CHECKOUT_URL: string = 'INSERT_MY_GUMROAD_OR_WHOP_PAYMENT_LINK';
+const CHECKOUT_URL = 'https://whop.com/healthy-family/healthy-eating-in-a-busy-household/';
 
 interface BenefitItem {
   title: string;
@@ -277,22 +271,11 @@ function EbookMockup() {
 
 export default function App() {
   const [openFaqIds, setOpenFaqIds] = useState<string[]>(['faq-free-advice']);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
 
   const toggleFaq = (id: string) => {
     setOpenFaqIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
-  };
-
-  const isPlaceholderLink = CHECKOUT_URL === 'INSERT_MY_GUMROAD_OR_WHOP_PAYMENT_LINK';
-
-  const handleBuyClick = () => {
-    if (!isPlaceholderLink && CHECKOUT_URL.startsWith('http')) {
-      window.location.assign(CHECKOUT_URL);
-      return;
-    }
-    setIsCheckoutOpen(true);
   };
 
   return (
@@ -353,14 +336,15 @@ export default function App() {
               </p>
 
               <div className="mt-8 flex flex-col items-start">
-                <button
-                  type="button"
-                  onClick={handleBuyClick}
-                  className="inline-flex items-center justify-center gap-2.5 bg-[#F4C430] hover:bg-[#E5B422] active:translate-y-px text-[#0D213F] font-bold text-base sm:text-[17px] px-7 py-4 rounded-full shadow-[0_8px_24px_rgba(244,196,48,0.28)] transition-all duration-150 cursor-pointer whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D213F]"
+                <a
+                  href={CHECKOUT_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2.5 bg-[#F4C430] hover:bg-[#E5B422] active:translate-y-px text-[#0D213F] font-bold text-base sm:text-[17px] px-7 py-4 rounded-full shadow-[0_8px_24px_rgba(244,196,48,0.28)] transition-all duration-150 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D213F]"
                 >
                   <span>Get The Shared Kitchen Reset — $5</span>
                   <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
-                </button>
+                </a>
 
                 <p className="mt-3.5 text-sm text-slate-300 tracking-normal">
                   Instant Download <span aria-hidden="true">·</span> Downloadable PDF + Printable Templates
@@ -498,14 +482,15 @@ export default function App() {
                   </p>
 
                   <div className="mt-7 flex flex-col items-start">
-                    <button
-                      type="button"
-                      onClick={handleBuyClick}
-                      className="inline-flex items-center justify-center gap-2.5 bg-[#F4C430] hover:bg-[#E5B422] active:translate-y-px text-[#0D213F] font-bold text-base sm:text-[17px] px-8 py-4 rounded-full shadow-[0_8px_24px_rgba(244,196,48,0.28)] transition-all duration-150 cursor-pointer whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D213F]"
+                    <a
+                      href={CHECKOUT_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center gap-2.5 bg-[#F4C430] hover:bg-[#E5B422] active:translate-y-px text-[#0D213F] font-bold text-base sm:text-[17px] px-8 py-4 rounded-full shadow-[0_8px_24px_rgba(244,196,48,0.28)] transition-all duration-150 whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D213F]"
                     >
                       <span>Get The Shared Kitchen Reset</span>
                       <ArrowRight className="w-4 h-4 shrink-0" aria-hidden="true" />
-                    </button>
+                    </a>
 
                     <p className="mt-3.5 text-sm text-slate-300">
                       Instant Download <span aria-hidden="true">·</span> PDF Guide{' '}
@@ -550,89 +535,6 @@ export default function App() {
           <span>Eat well. Keep the peace. · Instant PDF Download</span>
         </div>
       </footer>
-
-      {/* Checkout Preview Modal (only opens on explicit Buy CTA click) */}
-      {isCheckoutOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#09162B]/70 backdrop-blur-xs"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="checkout-modal-title"
-        >
-          <div className="relative w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-2xl p-6 sm:p-8 text-[#0F1E36]">
-            <button
-              type="button"
-              onClick={() => setIsCheckoutOpen(false)}
-              aria-label="Close checkout summary"
-              className="absolute top-4 right-4 w-9 h-9 rounded-full flex items-center justify-center text-slate-500 hover:text-[#0D213F] hover:bg-slate-100 transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#0D213F] text-[#F4C430] flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5" aria-hidden="true" />
-              </div>
-              <div>
-                <h3 id="checkout-modal-title" className="font-serif font-bold text-xl text-[#0D213F]">
-                  The Shared Kitchen Reset
-                </h3>
-                <p className="text-sm text-[#475569]">$5 — One-Time Payment</p>
-              </div>
-            </div>
-
-            <div className="mt-5 pt-5 border-t border-slate-200 text-sm text-[#334155] space-y-2.5">
-              <p className="font-semibold text-[#0D213F]">Included in your download:</p>
-              <ul className="space-y-2">
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#0D213F] shrink-0" aria-hidden="true" />
-                  <span>7-Chapter Shared Kitchen System (PDF Ebook)</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#0D213F] shrink-0" aria-hidden="true" />
-                  <span>9 Printable Templates &amp; 30-Day Habit Calendar</span>
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="w-4 h-4 text-[#0D213F] shrink-0" aria-hidden="true" />
-                  <span>Word-for-Word Scripts + Fridge-Door Cheat Sheet</span>
-                </li>
-              </ul>
-            </div>
-
-            <div className="mt-6 rounded-xl bg-[#FAF9F6] border border-slate-200 p-4 text-xs leading-relaxed text-[#475569]">
-              <p className="font-semibold text-[#0D213F]">Checkout Link Ready to Connect</p>
-              <p className="mt-1">
-                Replace <code className="font-mono text-[#0D213F]">CHECKOUT_URL</code> in{' '}
-                <code className="font-mono text-[#0D213F]">src/App.tsx</code> with your live Gumroad
-                or Whop payment link to send buyers straight to checkout.
-              </p>
-            </div>
-
-            <div className="mt-6 flex items-center justify-end gap-3">
-              <button
-                type="button"
-                onClick={() => setIsCheckoutOpen(false)}
-                className="px-4 py-2.5 text-sm font-medium text-[#475569] hover:text-[#0D213F] transition-colors cursor-pointer"
-              >
-                Back to page
-              </button>
-              <a
-                href={isPlaceholderLink ? '#buy' : CHECKOUT_URL}
-                onClick={(e) => {
-                  if (isPlaceholderLink) {
-                    e.preventDefault();
-                    setIsCheckoutOpen(false);
-                  }
-                }}
-                className="inline-flex items-center gap-2 bg-[#F4C430] hover:bg-[#E5B422] text-[#0D213F] font-bold text-sm px-5 py-2.5 rounded-full transition-colors whitespace-nowrap"
-              >
-                <span>Proceed to $5 Checkout</span>
-                <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
-              </a>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
